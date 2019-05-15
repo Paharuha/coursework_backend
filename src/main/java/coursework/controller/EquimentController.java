@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -42,5 +43,17 @@ public class EquimentController {
     @DeleteMapping("{id}")
     public void deleteEquiment(@PathVariable("id") Equiment equiment) {
         equimentRepo.delete(equiment);
+    }
+
+    @GetMapping("/find-by-equiment")
+    public Iterable<Equiment> getEquimet(@RequestParam(name = "date1") String startDate) {
+        String[] date = startDate.split("-");
+        LocalDate start = LocalDate.of(Integer.valueOf(date[0]), Integer.valueOf(date[1]), Integer.valueOf(date[2]));
+        return equimentRepo.getEquimnet(start);
+    }
+
+    @GetMapping("/find-by-equiment-name")
+    public Iterable<Equiment> getEquimnetByName(@RequestParam(name = "name") String name) {
+        return equimentRepo.getEquimnetByName(name);
     }
 }

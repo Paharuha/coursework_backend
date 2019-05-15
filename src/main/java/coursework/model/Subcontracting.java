@@ -20,7 +20,7 @@ public class Subcontracting {
     private int id;
 
     @Column(name = "name")
-    private String name;
+        private String name;
 
     @Column(name = "value")
     private int value;

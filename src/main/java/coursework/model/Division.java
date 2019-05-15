@@ -24,5 +24,5 @@ public class Division {
 
     @ManyToOne
     @JoinColumn(name = "id_manager")
-    private HeadDepartment headDepartment;
+        private HeadDepartment headDepartment;
 }

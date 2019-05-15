@@ -1,11 +1,13 @@
 package coursework.controller;
 
+import coursework.model.Division;
 import coursework.model.Technician;
 import coursework.repository.TechnicianRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -42,5 +44,18 @@ public class TechnicianController {
     @DeleteMapping("{id}")
     public void deleteTechnician(@PathVariable("id") Technician technician) {
         technicianRepo.delete(technician);
+    }
+
+    @GetMapping("/find-by-divsion")
+    public Iterable<Technician> getByDivision(@RequestBody Division division) {
+        return technicianRepo.findByDivision(division);
+    }
+
+    @GetMapping("/find-by-technician")
+    public Iterable<Technician> getTechnician(@RequestParam(name = "surname") String name,
+                                            @RequestParam(name = "date1") String localDate) {
+        String[] date = localDate.split("-");
+        LocalDate start = LocalDate.of(Integer.valueOf(date[0]), Integer.valueOf(date[1]), Integer.valueOf(date[2]));
+        return technicianRepo.getTechnician(name, start);
     }
 }

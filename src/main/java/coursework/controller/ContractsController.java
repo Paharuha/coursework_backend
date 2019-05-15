@@ -1,13 +1,19 @@
 package coursework.controller;
 
 import coursework.model.Contracts;
+import coursework.model.Projects;
 import coursework.repository.ContractsRepo;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("api/contracts")
 public class ContractsController {
+    @Autowired
+
     private final ContractsRepo contractsRepo;
 
     public ContractsController(ContractsRepo contractsRepo) {
@@ -40,4 +46,38 @@ public class ContractsController {
     public void deleteContracts(@PathVariable("id") Contracts contract) {
         contractsRepo.delete(contract);
     }
+
+    @GetMapping("/find-by-date")
+    public Iterable<Contracts> getByDate(@RequestParam(name = "start_date") String startDate,
+                                         @RequestParam(name = "end_date") String endDate) {
+        String[] date = startDate.split("-");
+        LocalDate start = LocalDate.of(Integer.valueOf(date[0]), Integer.valueOf(date[1]), Integer.valueOf(date[2]));
+        date = endDate.split("-");
+        LocalDate end = LocalDate.of(Integer.valueOf(date[0]), Integer.valueOf(date[1]), Integer.valueOf(date[2]));
+        return contractsRepo.getContracts(start, end);
+    }
+
+    @GetMapping("/find-by-namecontract")
+    public Iterable<Contracts> getByNameContract(@RequestParam(name = "name_contract") String project) {
+        return contractsRepo.getProjects(project);
+    }
+
+    @GetMapping("/find-by-value")
+    public Iterable<Contracts> getValue(@RequestParam(name = "start_date") String startDate,
+                                         @RequestParam(name = "end_date") String endDate) {
+        String[] date = startDate.split("-");
+        LocalDate start = LocalDate.of(Integer.valueOf(date[0]), Integer.valueOf(date[1]), Integer.valueOf(date[2]));
+        date = endDate.split("-");
+        LocalDate end = LocalDate.of(Integer.valueOf(date[0]), Integer.valueOf(date[1]), Integer.valueOf(date[2]));
+        return contractsRepo.getContracts(start, end);
+    }
+
+    @GetMapping("/find-by-subconracting")
+    public Iterable<Contracts> getSubcontracting(@RequestParam(name = "name") String name) {
+        return contractsRepo.getSubcontracting(name);
+    }
+
+
+
+
 }
