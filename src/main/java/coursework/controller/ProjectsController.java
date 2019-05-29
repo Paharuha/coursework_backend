@@ -1,5 +1,6 @@
 package coursework.controller;
 
+import coursework.model.Contracts;
 import coursework.model.Projects;
 import coursework.repository.ProjectsRepo;
 import org.springframework.beans.BeanUtils;
@@ -41,5 +42,15 @@ public class ProjectsController {
     @DeleteMapping("{id}")
     public void deleteProjects(@PathVariable("id") Projects projects) {
         projectsRepo.delete(projects);
+    }
+
+    @GetMapping("/find-by-nameprojects")
+    public Iterable<Projects> getByNameProjects(@RequestParam(name = "name") String project) {
+        return projectsRepo.getProjects(project);
+    }
+
+    @GetMapping("/find-by-equimentnum")
+    public Iterable<Projects> getEquimentNum(@RequestParam(name = "number") String number) {
+        return projectsRepo.getEquimentNum(Integer.valueOf(number));
     }
 }

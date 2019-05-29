@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 
 public interface EquimentRepo extends JpaRepository<Equiment, Integer> {
-    @Query(value = "SELECT equiment.* FROM contracts \n" +
+    @Query(value = "SELECT * FROM contracts \n" +
             "INNER JOIN projects ON contracts.id_projects = projects.id\n" +
             "INNER JOIN equiment ON projects.equiment = equiment.id\n" +
             "WHERE :date1 BETWEEN  contracts.date_start AND contracts.date_end", nativeQuery = true)

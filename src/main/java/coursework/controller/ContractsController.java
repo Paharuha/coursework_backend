@@ -1,7 +1,6 @@
 package coursework.controller;
 
 import coursework.model.Contracts;
-import coursework.model.Projects;
 import coursework.repository.ContractsRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +68,7 @@ public class ContractsController {
         LocalDate start = LocalDate.of(Integer.valueOf(date[0]), Integer.valueOf(date[1]), Integer.valueOf(date[2]));
         date = endDate.split("-");
         LocalDate end = LocalDate.of(Integer.valueOf(date[0]), Integer.valueOf(date[1]), Integer.valueOf(date[2]));
-        return contractsRepo.getContracts(start, end);
+        return contractsRepo.getContractsValue(start, end);
     }
 
     @GetMapping("/find-by-subconracting")
@@ -77,7 +76,23 @@ public class ContractsController {
         return contractsRepo.getSubcontracting(name);
     }
 
+    @GetMapping("/find-by-peopleproject")
+    public Iterable<Contracts> getPeopleProject(@RequestParam(name = "name") String name) {
+        return contractsRepo.getPeopleProject(name);
+    }
 
+    @GetMapping("/find-by-peopledate")
+    public Iterable<Contracts> getPeopleDate(@RequestParam(name = "date") String startDate,
+                                             @RequestParam(name = "end_date") String endDate) {
+        String[] date = startDate.split("-");
+        LocalDate start = LocalDate.of(Integer.valueOf(date[0]), Integer.valueOf(date[1]), Integer.valueOf(date[2]));
+        date = endDate.split("-");
+        LocalDate end = LocalDate.of(Integer.valueOf(date[0]), Integer.valueOf(date[1]), Integer.valueOf(date[2]));
+        return contractsRepo.getPeopleDate(start ,end);
+    }
 
-
+    @GetMapping("/find-by-rahun")
+    public Iterable<Double> getRah(@RequestParam(name = "id") int id){
+        return  contractsRepo.getRah(id);
+    }
 }
