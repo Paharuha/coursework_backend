@@ -41,11 +41,10 @@
 <!--            <version>2.1.3.RELEASE</version>-->
 <!--        </dependency>-->
 
-        <!-- Use MySQL Connector-J -->
-
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
